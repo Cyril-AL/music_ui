@@ -13,7 +13,7 @@
 	export default Vue.extend({
 		data() {
 			return {
-				title: 'Hello'
+				title: '贾亦凡'
 			}
 		},
 		onLoad() {
