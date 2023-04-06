@@ -3,7 +3,7 @@
     export default Vue.extend({
         mpType: 'app',
         onLaunch() {
-            console.log('App Launch')
+            console.log('App Launch launch')
         },
         onShow() {
             console.log('App Show')
