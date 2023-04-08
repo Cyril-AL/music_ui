@@ -1,7 +1,31 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/myMusic/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/myAttention/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/myCommunity/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/myFind/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/myPodcast/index",
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
@@ -12,5 +36,37 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/myFind/index",
+			"iconPath": "static/HomePage/发现-未激活.png",
+			"selectedIconPath": "static/HomePage/发现-激活.png",
+			"text": "发现"
+		}, {
+			"pagePath": "pages/myPodcast/index",
+			"iconPath": "static/HomePage/K歌.png",
+			"selectedIconPath": "static/HomePage/K歌-激活.png",
+			"text": "博客"
+		}, {
+			"pagePath": "pages/myMusic/index",
+			"iconPath": "static/HomePage/音乐-未激活.png",
+			"selectedIconPath": "static/HomePage/音乐-激活.png",
+			"text": "我的"
+		}, {
+			"pagePath": "pages/myAttention/index",
+			"iconPath": "static/HomePage/关注-未激活.png",
+			"selectedIconPath": "static/HomePage/关注-激活.png",
+			"text": "关注"
+		}, {
+			"pagePath": "pages/myCommunity/index",
+			"iconPath": "static/HomePage/社区-未激活.png",
+			"selectedIconPath": "static/HomePage/社区-激活.png",
+			"text": "社区"
+		}]
 	}
 }
