@@ -1,5 +1,5 @@
 <template>
-	<div>我的社区</div>
+	<div>我的社区A </div>
 </template>
 
 <script>
