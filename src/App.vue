@@ -16,4 +16,7 @@ export default Vue.extend({
 
 <style>
 /*每个页面公共css */
+page {
+	background-color: rgba(212,242,231,.4);
+}
 </style>
