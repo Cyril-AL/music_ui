@@ -64,7 +64,7 @@
 			"text": "发现"
 		}, {
 			"pagePath": "pages/myPodcast/index",
-			"iconPath": "static/HomePage/K歌.png",
+			"iconPath": "static/HomePage/K歌-未激活.png",
 			"selectedIconPath": "static/HomePage/K歌-激活.png",
 			"text": "博客"
 		}, {
