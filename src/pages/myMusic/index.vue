@@ -1,21 +1,24 @@
 <template>
-	<view class="content"><myAccount></myAccount></view>
+	<view>
+		<view class="content"><myAccount /></view>
+		<view><SongSheet></SongSheet></view>
+	</view>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import myAccount from '../components/myAccount.vue';
+import SongSheet from './pages/SongSheet.vue';
 
 export default Vue.extend({
 	data() {
-		return {
-			title: '贾亦凡'
-		};
+		return {};
 	},
 	onLoad() {},
 	methods: {},
 	components: {
-		myAccount: myAccount
+		myAccount,
+		SongSheet
 	}
 });
 </script>

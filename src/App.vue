@@ -1,5 +1,6 @@
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({
 	mpType: 'app',
 	onLaunch() {
@@ -14,9 +15,11 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="scss">
+// @import 'uview-ui/theme.scss';
+// @import '@/uni_modules/uni-scss/variables.scss';
 /*每个页面公共css */
 page {
-	background-color: rgba(212,242,231,.4);
+	background-color: rgba(241, 240, 245, 1);
 }
 </style>
