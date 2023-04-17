@@ -2,8 +2,7 @@
 	"easycom": {
 		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
 	},
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
+	"pages": [{
 			"path": "pages/myMusic/index",
 			"navigationStyle": "custom",
 			"style": {
@@ -43,6 +42,15 @@
 			"path": "pages/myPodcast/index",
 			"navigationStyle": "custom",
 			"style": {
+				"app-plus": {
+					"titleNView": false //禁用原生导航栏  
+				}
+			}
+		},
+		{
+			"path": "pages/components/musicList/musicList",
+			"style": {
+				"navigationBarTitleText": "组件",
 				"app-plus": {
 					"titleNView": false //禁用原生导航栏  
 				}

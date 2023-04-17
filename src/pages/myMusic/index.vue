@@ -2,6 +2,7 @@
 	<view>
 		<view class="content"><myAccount /></view>
 		<view><SongSheet></SongSheet></view>
+		<view><myFavoriteSong /></view>
 	</view>
 </template>
 
@@ -9,6 +10,7 @@
 import Vue from 'vue';
 import myAccount from '../components/myAccount.vue';
 import SongSheet from './pages/SongSheet.vue';
+import myFavoriteSong from './pages/myFavoriteSong.vue';
 
 export default Vue.extend({
 	data() {
@@ -18,7 +20,8 @@ export default Vue.extend({
 	methods: {},
 	components: {
 		myAccount,
-		SongSheet
+		SongSheet,
+		myFavoriteSong
 	}
 });
 </script>
