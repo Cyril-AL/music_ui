@@ -20,17 +20,27 @@
 					</view>
 				</view>
 			</view>
-			<view class="functionBtn"></view>
+			<view class="functionBtn">
+				<view class="btn" v-for="(item, index) in buttonList">
+					<img class="logo" :src="item.logo" alt="" />
+					<view class="label">{{ item.label }}</view>
+				</view>
+			</view>
 		</view>
 		<view class="music_list">
 			<view class="content_menu" v-for="(item, index) in musicListData">
-				<!-- <view class="img_container"><img :src="item.coverImg" alt="" /></view> -->
 				<view class="menu_front">
-					<view class="sort">{{index + 1}}</view>
-					<view class="menu_info">{{ item.musicName }}</view>
+					<view class="sort">{{ index + 1 }}</view>
+					<view class="menu_info">
+						<view class="name">{{ item.musicName }}</view>
+						<view class="author">{{ item.author }}</view>
+					</view>
 				</view>
-				
-				<view class="menu_behind">2</view>
+
+				<view class="menu_behind">
+					<img :src="require('../images/播放.png')" alt="" />
+					<img :src="require('../../../static/myMusic/右侧菜单.png')" alt="" />
+				</view>
 			</view>
 		</view>
 	</view>
@@ -44,6 +54,20 @@ import menu_img from '../../../static/myMusic/右侧菜单.png';
 export default {
 	data() {
 		return {
+			buttonList: [
+				{
+					label: '分享',
+					logo: require('../images/分享.png')
+				},
+				{
+					label: '评论',
+					logo: require('../images/评论.png')
+				},
+				{
+					label: '收藏',
+					logo: require('../images/收藏.png')
+				}
+			],
 			musicListData: [
 				{
 					musicName: '没有人不比我快乐',
@@ -173,30 +197,80 @@ export default {
 	}
 
 	.functionBtn {
+		width: 100%;
+		height: 40px;
+		color: white;
+		display: flex;
+		justify-content: space-around;
+		padding-top: 15px;
+
+		.btn {
+			height: 40px;
+			width: 30%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: rgba(255, 255, 255, .2);
+			border-radius: 20px;
+			font-size: 12px;
+			font-weight: 700;
+			cursor: pointer;
+
+			.logo {
+				width: 14px;
+				height: 14px;
+				padding-right: 10px;
+			}
+
+			.label {
+				padding-bottom: 2px;
+			}
+		}
 	}
-	
+
 	.music_list {
 		width: 100%;
 		height: 100%;
 		overflow-y: auto;
 		overflow-x: hidden;
-		
+
 		.content_menu {
 			width: 100%;
 			height: 60px;
-			border-bottom: 1px solid red;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			
+
 			.menu_front {
 				height: 100%;
 				display: flex;
 				align-items: center;
-				color: #979797;
-				
-				.sort{
-					padding: 0 10px 0 10px;
+
+				.sort {
+					padding: 0 15px 0 10px;
+					color: #979797;
+				}
+
+				.name {
+					font-size: 15px;
+					font-weight: 400;
+					padding-bottom: 2px;
+				}
+
+				.author {
+					font-size: 12px;
+					color: #979797;
+				}
+			}
+
+			.menu_behind {
+				display: flex;
+				align-items: center;
+
+				img {
+					width: 20px;
+					height: 20px;
+					padding-right: 15px;
 				}
 			}
 		}
