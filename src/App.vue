@@ -13,7 +13,8 @@
 </script>
 
 <style lang="scss">
-@import "@/uni_modules/uview-plus/index.scss";
+// @import 'uview-ui/theme.scss';
+// @import '@/uni_modules/uni-scss/variables.scss';
 /*每个页面公共css */
 page {
   background-color: rgba(241, 240, 245, 1);
