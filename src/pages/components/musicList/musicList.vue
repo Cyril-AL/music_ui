@@ -28,7 +28,7 @@
 			</view>
 		</view>
 		<view class="music_list">
-			<view class="content_menu" v-for="(item, index) in musicListData">
+			<view @click="clickList(item)" class="content_menu" v-for="(item, index) in musicListData">
 				<view class="menu_front">
 					<view class="sort">{{ index + 1 }}</view>
 					<view class="menu_info">
@@ -43,6 +43,9 @@
 				</view>
 			</view>
 		</view>
+		<u-popup :show="show" @close="close" @open="open">
+			<view style="height: 100vh;"><MusicPlayback :musicProps="clickData" @musicPlayToList="musicPlayToList" /></view>
+		</u-popup>
 	</view>
 </template>
 
@@ -50,10 +53,13 @@
 import back_img from '../../../static/myMusic/返回.png';
 import search_img from '../../../static/myMusic/搜索.png';
 import menu_img from '../../../static/myMusic/右侧菜单.png';
+import MusicPlayback from './MusicPlayback.vue';
 
 export default {
 	data() {
 		return {
+			show: false,
+			clickData: {},
 			buttonList: [
 				{
 					label: '分享',
@@ -72,26 +78,26 @@ export default {
 				{
 					musicName: '没有人不比我快乐',
 					author: 'Fine乐团',
-					coverImg: require('../assets/没有人不比我快乐.png'),
-					musicUrl: '../assets/Fine乐团 - 没有人不比我快乐.mp3'
+					coverImg: require('@/static/audio/没有人不比我快乐.png'),
+					musicUrl: '/static/audio/Fine乐团 - 没有人不比我快乐.mp3'
 				},
 				{
 					musicName: 'New Boy',
 					author: '房东的猫,陈婧霏',
-					coverImg: require('../assets/NewBoy.png'),
-					musicUrl: '../assets/房东的猫,陈婧霏 - New Boy.mp3'
+					coverImg: require('@/static/audio/NewBoy.png'),
+					musicUrl: '/static/audio/房东的猫,陈婧霏 - New Boy.mp3'
 				},
 				{
 					musicName: '得不到你',
 					author: 'Fine乐团',
-					coverImg: require('../assets/得不到你.png'),
-					musicUrl: '../assets/Fine乐团 - Fine乐团 - 得不到你.mp3'
+					coverImg: require('@/static/audio/得不到你.png'),
+					musicUrl: '/static/audio/Fine乐团 - Fine乐团 - 得不到你.mp3'
 				},
 				{
 					musicName: '城市动物园 (live版)',
 					author: '房东的猫',
-					coverImg: require('../assets/城市动物园.png'),
-					musicUrl: '../assets/房东的猫 - 城市动物园 (live版).mp3'
+					coverImg: require('@/static/audio/城市动物园.png'),
+					musicUrl: '/static/audio/房东的猫 - 城市动物园 (live版).mp3'
 				}
 			]
 		};
@@ -101,7 +107,23 @@ export default {
 			uni.switchTab({
 				url: '/pages/myMusic/index'
 			});
+		},
+		open() {
+			this.show = true;
+		},
+		close() {
+			this.show = false;
+		},
+		clickList(item) {
+			this.show = true;
+			this.clickData = item;
+		},
+		musicPlayToList(val) {
+			this.show = val;
 		}
+	},
+	components: {
+		MusicPlayback
 	}
 };
 </script>
@@ -210,7 +232,7 @@ export default {
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			background-color: rgba(255, 255, 255, .2);
+			background-color: rgba(255, 255, 255, 0.2);
 			border-radius: 20px;
 			font-size: 12px;
 			font-weight: 700;
