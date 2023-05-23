@@ -1,301 +1,500 @@
 <template>
-	<view class="content">
-		<view class="titlebar">
-			<view class="title_bar">
-				<view><img @click="backFunClick" :src="require('../../../static/myMusic/返回.png')" alt="" /></view>
-				<view class="bar_name">歌单</view>
-				<view>
-					<img class="search" :src="require('../../../static/myMusic/搜索.png')" alt="" />
-					<img class="menu" :src="require('../../../static/myMusic/右侧菜单.png')" alt="" />
-				</view>
-			</view>
-			<view class="title_info">
-				<img class="fengmian" :src="require('../images/喜欢的音乐封面.png')" />
-				<view class="title">
-					<view class="title_label">我喜欢的音乐</view>
-					<view class="title_value">
-						<img :src="require('../images/avator.png')" />
-						山林不向四季起誓_cyril
-						<img class="tomyInfo" :src="require('../../../static/myMusic/返回.png')" alt="" />
-					</view>
-				</view>
-			</view>
-			<view class="functionBtn">
-				<view class="btn" v-for="(item, index) in buttonList">
-					<img class="logo" :src="item.logo" alt="" />
-					<view class="label">{{ item.label }}</view>
-				</view>
-			</view>
-		</view>
-		<view class="music_list">
-			<view @click="clickList(item)" class="content_menu" v-for="(item, index) in musicListData">
-				<view class="menu_front">
-					<view class="sort">{{ index + 1 }}</view>
-					<view class="menu_info">
-						<view class="name">{{ item.musicName }}</view>
-						<view class="author">{{ item.author }}</view>
-					</view>
-				</view>
+  <view class="content">
+    <view class="title_bar" ref="titleBar">
+      <view
+        ><img
+          @click="backFunClick"
+          :src="require('../../../static/myMusic/返回.png')"
+          alt=""
+      /></view>
+      <view class="bar_name">{{ titleName }}</view>
+      <view>
+        <img
+          class="search"
+          :src="require('../../../static/myMusic/搜索.png')"
+          alt=""
+        />
+        <img
+          class="menu"
+          :src="require('../../../static/myMusic/右侧菜单.png')"
+          alt=""
+        />
+      </view>
+    </view>
 
-				<view class="menu_behind">
-					<img :src="require('../images/播放.png')" alt="" />
-					<img :src="require('../../../static/myMusic/右侧菜单.png')" alt="" />
-				</view>
-			</view>
-		</view>
-		<u-popup :show="show" @close="close" @open="open">
-			<view style="height: 100vh;"><MusicPlayback :musicProps="clickData" @musicPlayToList="musicPlayToList" /></view>
-		</u-popup>
-	</view>
+    <view class="info">
+      <view class="titlebar">
+        <view class="title_info">
+          <img
+            class="fengmian"
+            :src="require('../images/喜欢的音乐封面.png')"
+          />
+          <view class="title">
+            <view class="title_label">我喜欢的音乐</view>
+            <view class="title_value">
+              <img :src="require('../images/avator.png')" />
+              山林不向四季起誓_cyril
+              <img
+                class="tomyInfo"
+                :src="require('../../../static/myMusic/返回.png')"
+                alt=""
+              />
+            </view>
+          </view>
+        </view>
+        <view class="functionBtn">
+          <view class="btn" v-for="(item, index) in buttonList">
+            <img class="logo" :src="item.logo" alt="" />
+            <view class="label">{{ item.label }}</view>
+          </view>
+        </view>
+      </view>
+
+      <u-sticky>
+        <view class="playerAll">
+          <view class="backColorLine" />
+          <img
+            :src="require('../../../static/myMusic/songSheet/播放.png')"
+            alt=""
+          />
+          <view class="boFangAll"
+            >播放全部 <span>({{ musicListData.length }})</span></view
+          >
+          <view class="backColor" />
+        </view>
+      </u-sticky>
+
+      <view class="music_list">
+        <view
+          @click="clickList(item)"
+          class="content_menu"
+          v-for="(item, index) in musicListData"
+        >
+          <view class="menu_front">
+            <view class="sort">{{ index + 1 }}</view>
+            <view class="menu_info">
+              <view class="name">{{ item.musicName }}</view>
+              <view class="author">{{ item.author }}</view>
+            </view>
+          </view>
+
+          <view class="menu_behind">
+            <img :src="require('../images/播放.png')" alt="" />
+            <img
+              :src="require('../../../static/myMusic/右侧菜单.png')"
+              alt=""
+            />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <u-popup :show="show" @close="close" @open="open">
+      <view style="height: 100vh"
+        ><MusicPlayback
+          :musicProps="clickData"
+          @musicPlayToList="musicPlayToList"
+      /></view>
+    </u-popup>
+  </view>
 </template>
 
 <script>
-import back_img from '../../../static/myMusic/返回.png';
-import search_img from '../../../static/myMusic/搜索.png';
-import menu_img from '../../../static/myMusic/右侧菜单.png';
-import MusicPlayback from './MusicPlayback.vue';
+import MusicPlayback from "./MusicPlayback.vue";
+import USticky from "@/uni_modules/uview-plus/components/u-sticky/u-sticky.vue";
+import UPopup from "@/uni_modules/uview-plus/components/u-popup/u-popup.vue";
 
 export default {
-	data() {
-		return {
-			show: false,
-			clickData: {},
-			buttonList: [
-				{
-					label: '分享',
-					logo: require('../images/分享.png')
-				},
-				{
-					label: '评论',
-					logo: require('../images/评论.png')
-				},
-				{
-					label: '收藏',
-					logo: require('../images/收藏.png')
-				}
-			],
-			musicListData: [
-				{
-					musicName: '没有人不比我快乐',
-					author: 'Fine乐团',
-					coverImg: require('@/static/audio/没有人不比我快乐.png'),
-					musicUrl: '/static/audio/Fine乐团 - 没有人不比我快乐.mp3'
-				},
-				{
-					musicName: 'New Boy',
-					author: '房东的猫,陈婧霏',
-					coverImg: require('@/static/audio/NewBoy.png'),
-					musicUrl: '/static/audio/房东的猫,陈婧霏 - New Boy.mp3'
-				},
-				{
-					musicName: '得不到你',
-					author: 'Fine乐团',
-					coverImg: require('@/static/audio/得不到你.png'),
-					musicUrl: '/static/audio/Fine乐团 - Fine乐团 - 得不到你.mp3'
-				},
-				{
-					musicName: '城市动物园 (live版)',
-					author: '房东的猫',
-					coverImg: require('@/static/audio/城市动物园.png'),
-					musicUrl: '/static/audio/房东的猫 - 城市动物园 (live版).mp3'
-				}
-			]
-		};
-	},
-	methods: {
-		backFunClick() {
-			uni.switchTab({
-				url: '/pages/myMusic/index'
-			});
-		},
-		open() {
-			this.show = true;
-		},
-		close() {
-			this.show = false;
-		},
-		clickList(item) {
-			this.show = true;
-			this.clickData = item;
-		},
-		musicPlayToList(val) {
-			this.show = val;
-		}
-	},
-	components: {
-		MusicPlayback
-	}
+  data() {
+    return {
+      titleName: "歌单",
+      show: false,
+      clickData: {},
+      isFixed: false,
+      buttonList: [
+        {
+          label: "分享",
+          logo: require("../images/分享.png"),
+        },
+        {
+          label: "评论",
+          logo: require("../images/评论.png"),
+        },
+        {
+          label: "收藏",
+          logo: require("../images/收藏.png"),
+        },
+      ],
+      musicListData: [
+        {
+          musicName: "没有人不比我快乐",
+          author: "Fine乐团",
+          coverImg: require("@/static/audio/没有人不比我快乐.png"),
+          musicUrl: "/static/audio/Fine乐团 - 没有人不比我快乐.mp3",
+        },
+        {
+          musicName: "New Boy",
+          author: "房东的猫,陈婧霏",
+          coverImg: require("@/static/audio/NewBoy.png"),
+          musicUrl: "/static/audio/房东的猫,陈婧霏 - New Boy.mp3",
+        },
+        {
+          musicName: "得不到你",
+          author: "Fine乐团",
+          coverImg: require("@/static/audio/得不到你.png"),
+          musicUrl: "/static/audio/Fine乐团 - Fine乐团 - 得不到你.mp3",
+        },
+        {
+          musicName: "城市动物园 (live版)",
+          author: "房东的猫",
+          coverImg: require("@/static/audio/城市动物园.png"),
+          musicUrl: "/static/audio/房东的猫 - 城市动物园 (live版).mp3",
+        },
+        {
+          musicName: "I Need a Doctor",
+          author: "Skylar Grey Eminem Dr. Dre",
+          coverImg: require("@/static/audio/I Need a Doctor.png"),
+          musicUrl:
+            "/static/audio/Skylar Grey Eminem Dr. Dre - I Need a Doctor.mp3",
+        },
+        {
+          musicName: "沉醉于风中",
+          author: "S.E.N.S",
+          coverImg: require("@/static/audio/沉醉于风中.png"),
+          musicUrl: "/static/audio/S.E.N.S. - 沉醉于风中.mp3",
+        },
+        {
+          musicName: "光よ、ふたたび",
+          author: "矢野立美",
+          coverImg: require("@/static/audio/人类的光.png"),
+          musicUrl: "/static/audio/矢野立美 - 光よ、ふたたび.mp3",
+        },
+        {
+          musicName: "天涯",
+          author: "群星",
+          coverImg: require("@/static/audio/天涯.png"),
+          musicUrl: "/static/audio/群星 - 天涯.mp3",
+        },
+        {
+          musicName: "Past Lives",
+          author: "Slushii",
+          coverImg: require("@/static/audio/Past Lives.png"),
+          musicUrl: "/static/audio/Slushii - Past Lives.mp3",
+        },
+        {
+          musicName: "山鬼",
+          author: "洛尘鞅_",
+          coverImg: require("@/static/audio/山鬼.png"),
+          musicUrl: "/static/audio/洛尘鞅_ - 山鬼.mp3",
+        },
+        {
+          musicName: "陌上花开（Cover 小爱的妈）",
+          author: "玄觞",
+          coverImg: require("@/static/audio/陌上花开.png"),
+          musicUrl: "/static/audio/玄觞 - 陌上花开（Cover 小爱的妈）.mp3",
+        },
+        {
+          musicName: "好几年",
+          author: "许晴",
+          coverImg: require("@/static/audio/好几年.png"),
+          musicUrl: "/static/audio/许晴 - 好几年.mp3",
+        },
+      ],
+    };
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  methods: {
+    backFunClick() {
+      uni.switchTab({
+        url: "/pages/myMusic/index",
+      });
+    },
+    open() {
+      this.show = true;
+    },
+    close() {
+      this.show = false;
+    },
+    clickList(item) {
+      this.show = true;
+      this.clickData = item;
+    },
+    musicPlayToList(val) {
+      this.show = val;
+    },
+    handleScroll() {
+      const scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      this.isFixed = 160 <= scrollTop;
+    },
+  },
+  components: {
+    UPopup,
+    USticky,
+    MusicPlayback,
+  },
 };
 </script>
 
 <style lang="less">
 .content {
-	width: 100%;
-	height: 100%;
-	overflow-y: auto;
-	overflow-x: hidden;
-	.titlebar {
-		width: 100%;
-		height: 200px;
-		background-image: linear-gradient(to bottom, #8d4c4a, rgba(174, 104, 104, 0.8));
+  width: 100%;
+  height: 100%;
 
-		.title_bar {
-			width: 100%;
-			height: 40px;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			color: white;
-			font-size: 14px;
+  .title_bar {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    background-color: #8d4c4a;
+    position: fixed;
+    z-index: 99;
 
-			img {
-				width: 25px;
-				height: 25px;
-				padding-left: 5px;
-				cursor: pointer;
-			}
+    img {
+      width: 25px;
+      height: 25px;
+      padding-left: 5px;
+      cursor: pointer;
+    }
 
-			.bar_name {
-				margin-left: 20px;
-			}
+    .bar_name {
+      margin-left: 20px;
+    }
+    .search {
+      width: 20px;
+      height: 20px;
+      padding-right: 5px;
+    }
+    .menu {
+      width: 20px;
+      height: 20px;
+      padding-right: 10px;
+    }
+  }
 
-			.search {
-				width: 20px;
-				height: 20px;
-				padding-right: 5px;
-			}
-			.menu {
-				width: 20px;
-				height: 20px;
-				padding-right: 10px;
-			}
-		}
-	}
+  .info {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
 
-	.title_info {
-		width: 100%;
-		height: 80px;
-		display: flex;
-		padding-top: 10px;
-		padding-left: 15px;
+    .titlebar {
+      width: 100%;
+      height: 160px;
+      padding-top: 40px;
+      background-color: #8d4c4a;
 
-		.fengmian {
-			width: 80px;
-			height: 80px;
-		}
+      .title_info {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        padding-top: 10px;
+        padding-left: 15px;
 
-		.title {
-			color: white;
-			padding-left: 10px;
-			padding-top: 10px;
+        .fengmian {
+          width: 80px;
+          height: 80px;
+        }
 
-			.title_label {
-				font-size: 14px;
-				font-weight: 500;
-				letter-spacing: 1px;
-			}
-			.title_value {
-				color: #edcfc7;
-				font-size: 10px;
-				letter-spacing: 1px;
-				padding-top: 5px;
-				display: flex;
-				align-items: center;
+        .title {
+          color: white;
+          padding-left: 10px;
+          padding-top: 10px;
 
-				.tomyInfo {
-					width: 15px;
-					height: 15px;
-					transform: rotateY(180deg);
-				}
+          .title_label {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+          }
+          .title_value {
+            color: #edcfc7;
+            font-size: 10px;
+            letter-spacing: 1px;
+            padding-top: 5px;
+            display: flex;
+            align-items: center;
 
-				img {
-					width: 22px;
-					height: 22px;
-					border-radius: 50%;
-					padding-right: 5px;
-				}
-			}
-		}
-	}
+            .tomyInfo {
+              width: 15px;
+              height: 15px;
+              transform: rotateY(180deg);
+            }
 
-	.functionBtn {
-		width: 100%;
-		height: 40px;
-		color: white;
-		display: flex;
-		justify-content: space-around;
-		padding-top: 15px;
+            img {
+              width: 22px;
+              height: 22px;
+              border-radius: 50%;
+              padding-right: 5px;
+            }
+          }
+        }
+      }
 
-		.btn {
-			height: 40px;
-			width: 30%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			background-color: rgba(255, 255, 255, 0.2);
-			border-radius: 20px;
-			font-size: 12px;
-			font-weight: 700;
-			cursor: pointer;
+      .functionBtn {
+        width: 100%;
+        height: 40px;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        padding-top: 15px;
 
-			.logo {
-				width: 14px;
-				height: 14px;
-				padding-right: 10px;
-			}
+        .btn {
+          height: 40px;
+          width: 30%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgba(255, 255, 255, 0.2);
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 700;
+          cursor: pointer;
 
-			.label {
-				padding-bottom: 2px;
-			}
-		}
-	}
+          .logo {
+            width: 14px;
+            height: 14px;
+            padding-right: 10px;
+          }
 
-	.music_list {
-		width: 100%;
-		height: 100%;
-		overflow-y: auto;
-		overflow-x: hidden;
+          .label {
+            padding-bottom: 2px;
+          }
+        }
+      }
+    }
 
-		.content_menu {
-			width: 100%;
-			height: 60px;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+    .celling {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      background-color: #8d4c4a;
+      position: fixed;
+      top: 40px;
 
-			.menu_front {
-				height: 100%;
-				display: flex;
-				align-items: center;
+      img {
+        width: 22px;
+        height: 22px;
+        padding-left: 10px;
+        z-index: 90;
+      }
 
-				.sort {
-					padding: 0 15px 0 10px;
-					color: #979797;
-				}
+      .backColorLine {
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        background-color: #f1f0f5;
+        border-radius: 20px 20px 0 0;
+        z-index: 0;
+      }
 
-				.name {
-					font-size: 15px;
-					font-weight: 400;
-					padding-bottom: 2px;
-				}
+      .boFangAll {
+        font-size: 15px;
+        font-weight: 700;
+        padding-left: 5px;
+        z-index: 90;
 
-				.author {
-					font-size: 12px;
-					color: #979797;
-				}
-			}
+        span {
+          font-size: 12px;
+          font-weight: 500;
+          padding-left: 5px;
+        }
+      }
+    }
 
-			.menu_behind {
-				display: flex;
-				align-items: center;
+    .playerAll {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      background-color: #8d4c4a;
+      position: relative;
 
-				img {
-					width: 20px;
-					height: 20px;
-					padding-right: 15px;
-				}
-			}
-		}
-	}
+      img {
+        width: 22px;
+        height: 22px;
+        padding-left: 10px;
+        z-index: 90;
+      }
+
+      .backColorLine {
+        width: 100%;
+        height: 40px;
+        position: absolute;
+        background-color: #f1f0f5;
+        border-radius: 20px 20px 0 0;
+        z-index: 0;
+      }
+
+      .boFangAll {
+        font-size: 15px;
+        font-weight: 700;
+        padding-left: 5px;
+        z-index: 90;
+
+        span {
+          font-size: 12px;
+          font-weight: 500;
+          padding-left: 5px;
+        }
+      }
+    }
+
+    .music_list {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .content_menu {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .menu_front {
+          height: 100%;
+          display: flex;
+          align-items: center;
+
+          .sort {
+            padding: 0 15px 0 10px;
+            color: #979797;
+          }
+
+          .name {
+            font-size: 15px;
+            font-weight: 400;
+            padding-bottom: 2px;
+          }
+
+          .author {
+            font-size: 12px;
+            color: #979797;
+          }
+        }
+
+        .menu_behind {
+          display: flex;
+          align-items: center;
+
+          img {
+            width: 20px;
+            height: 20px;
+            padding-right: 15px;
+          }
+        }
+      }
+    }
+  }
 }
 </style>
