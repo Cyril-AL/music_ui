@@ -1,103 +1,112 @@
 {
-	"pages": [{
-			"path": "pages/myMusic/index",
-			"navigationStyle": "custom",
-			"style": {
-				"app-plus": {
-					"titleNView": false //禁用原生导航栏  
-				}
-			}
-		},
-		{
-			"path": "pages/myAttention/index",
-			"navigationStyle": "custom",
-			"style": {
-				"app-plus": {
-					"titleNView": false //禁用原生导航栏  
-				}
-			}
-		},
-		{
-			"path": "pages/myCommunity/index",
-			"navigationStyle": "custom",
-			"style": {
-				"app-plus": {
-					"titleNView": false //禁用原生导航栏  
-				}
-			}
-		},
-		{
-			"path": "pages/myFind/index",
-			"navigationStyle": "custom",
-			"style": {
-				"app-plus": {
-					"titleNView": false //禁用原生导航栏  
-				}
-			}
-		},
-		{
-			"path": "pages/myPodcast/index",
-			"navigationStyle": "custom",
-			"style": {
-				"app-plus": {
-					"titleNView": false //禁用原生导航栏  
-				}
-			}
-		},
-		{
-			"path": "pages/components/musicList/musicList",
-			"style": {
-				"navigationBarTitleText": "组件",
-				"app-plus": {
-					"titleNView": false //禁用原生导航栏  
-				}
-			}
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-	},
-	"tabBar": {
-		"color": "#7A7E83",
-		"selectedColor": "#3cc51f",
-		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
-		"list": [{
-			"pagePath": "pages/myFind/index",
-			"iconPath": "static/HomePage/发现-未激活.png",
-			"selectedIconPath": "static/HomePage/发现-激活.png",
-			"text": "发现"
-		}, {
-			"pagePath": "pages/myPodcast/index",
-			"iconPath": "static/HomePage/K歌-未激活.png",
-			"selectedIconPath": "static/HomePage/K歌-激活.png",
-			"text": "博客"
-		}, {
-			"pagePath": "pages/myMusic/index",
-			"iconPath": "static/HomePage/音乐-未激活.png",
-			"selectedIconPath": "static/HomePage/音乐-激活.png",
-			"text": "我的"
-		}, {
-			"pagePath": "pages/myAttention/index",
-			"iconPath": "static/HomePage/关注-未激活.png",
-			"selectedIconPath": "static/HomePage/关注-激活.png",
-			"text": "关注"
-		}, {
-			"pagePath": "pages/myCommunity/index",
-			"iconPath": "static/HomePage/社区-未激活.png",
-			"selectedIconPath": "static/HomePage/社区-激活.png",
-			"text": "社区"
-		}]
-	},
-	"condition": { //模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [{
-			"name": "", //模式名称
-			"path": "", //启动页面，必选
-			"query": "" //启动参数，在页面的onLoad函数里面得到
-		}]
-	}
+  "pages": [
+    {
+      "path": "pages/myMusic/index",
+      "navigationStyle": "custom",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/myAttention/index",
+      "navigationStyle": "custom",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/myCommunity/index",
+      "navigationStyle": "custom",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/myFind/index",
+      "navigationStyle": "custom",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/myPodcast/index",
+      "navigationStyle": "custom",
+      "style": {
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    },
+    {
+      "path": "pages/components/musicList/musicList",
+      "style": {
+        "navigationBarTitleText": "音乐列表",
+        "app-plus": {
+          "titleNView": false
+        }
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/myFind/index",
+        "iconPath": "static/HomePage/发现-未激活.png",
+        "selectedIconPath": "static/HomePage/发现-激活.png",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/myPodcast/index",
+        "iconPath": "static/HomePage/K歌-未激活.png",
+        "selectedIconPath": "static/HomePage/K歌-激活.png",
+        "text": "博客"
+      },
+      {
+        "pagePath": "pages/myMusic/index",
+        "iconPath": "static/HomePage/音乐-未激活.png",
+        "selectedIconPath": "static/HomePage/音乐-激活.png",
+        "text": "我的"
+      },
+      {
+        "pagePath": "pages/myAttention/index",
+        "iconPath": "static/HomePage/关注-未激活.png",
+        "selectedIconPath": "static/HomePage/关注-激活.png",
+        "text": "关注"
+      },
+      {
+        "pagePath": "pages/myCommunity/index",
+        "iconPath": "static/HomePage/社区-未激活.png",
+        "selectedIconPath": "static/HomePage/社区-激活.png",
+        "text": "社区"
+      }
+    ]
+  },
+  "condition": {
+    "current": 0,
+    "list": [
+      {
+        "name": "",
+        "path": "",
+        "query": ""
+      }
+    ]
+  }
 }

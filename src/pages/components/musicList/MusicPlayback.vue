@@ -23,10 +23,20 @@
     <view class="music_cover"></view>
     <view class="music_funtionBtn">
       <view class="funtionBtn">
-        <img class="xh_img" :src="require('../images/循环06.png')" alt="" />
-        <img class="sys_img" :src="require('../images/上一首.png')" alt="" />
+        <img @click="loopHandle" class="xh_img" :src="loopImage" alt="" />
+        <img
+          @click="prevMusic"
+          class="sys_img"
+          :src="require('../images/上一首.png')"
+          alt=""
+        />
         <img @click="playMusic" class="bf_img" :src="playImage" alt="" />
-        <img class="xys_img" :src="require('../images/下一首.png')" alt="" />
+        <img
+          @click="nextMusic"
+          class="xys_img"
+          :src="require('../images/下一首.png')"
+          alt=""
+        />
         <img class="lb_img" :src="require('../images/列表菜单.png')" alt="" />
       </view>
     </view>
@@ -42,6 +52,7 @@ export default {
     return {
       show: false,
       isPlaying: false,
+      loopType: 0, //0=>列表循环 1=>随机播放
     };
   },
   props: {
@@ -53,14 +64,24 @@ export default {
         ? "/static/components/暂停.png"
         : "/static/components/播放器.png";
     },
+    loopImage() {
+      return this.loopType === 0
+        ? "/static/components/列表循环.png"
+        : "/static/components/随机播放.png";
+    },
   },
   mounted() {
-    console.log("App onLaunch");
+    console.log("准备播放");
+    music.src = this.musicProps.musicUrl;
+    this.isPlaying = true;
+    music.play();
   },
   methods: {
+    //返回列表
     backListClick() {
       this.$emit("musicPlayToList", this.show);
     },
+    //音乐播放
     playMusic() {
       music.src = this.musicProps.musicUrl;
       this.isPlaying = this.isPlaying === false;
@@ -70,12 +91,21 @@ export default {
         music.stop();
       }
 
-      music.onPlay(() => {
-        console.log("开始播放");
+      music.onEnded((x) => {
+        console.log(x, "音乐播放结束");
       });
-      music.onPause(() => {
-        console.log("开始暂停");
-      });
+    },
+    //上一首
+    prevMusic() {
+      this.$emit("prevMusicHandle", this.musicProps);
+    },
+    //下一首
+    nextMusic() {
+      this.$emit("nextMusicHandle", this.musicProps);
+    },
+    //播放模式
+    loopHandle() {
+      this.loopType === 0 ? (this.loopType = 1) : (this.loopType = 0);
     },
   },
 };

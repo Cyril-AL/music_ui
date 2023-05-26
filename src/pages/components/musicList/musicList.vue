@@ -28,6 +28,7 @@
           <img
             class="fengmian"
             :src="require('../images/喜欢的音乐封面.png')"
+            alt=""
           />
           <view class="title">
             <view class="title_label">我喜欢的音乐</view>
@@ -50,19 +51,17 @@
         </view>
       </view>
 
-      <u-sticky>
-        <view class="playerAll">
-          <view class="backColorLine" />
-          <img
-            :src="require('../../../static/myMusic/songSheet/播放.png')"
-            alt=""
-          />
-          <view class="boFangAll"
-            >播放全部 <span>({{ musicListData.length }})</span></view
-          >
-          <view class="backColor" />
-        </view>
-      </u-sticky>
+      <view :class="isFixed ? 'celling' : 'playerAll'">
+        <view class="backColorLine" />
+        <img
+          :src="require('../../../static/myMusic/songSheet/播放.png')"
+          alt=""
+        />
+        <view class="boFangAll"
+          >播放全部 <span>({{ musicListData.length }})</span></view
+        >
+        <view class="backColor" />
+      </view>
 
       <view class="music_list">
         <view
@@ -94,6 +93,8 @@
         ><MusicPlayback
           :musicProps="clickData"
           @musicPlayToList="musicPlayToList"
+          @prevMusicHandle="prevMusicHandle"
+          @nextMusicHandle="nextMusicHandle"
       /></view>
     </u-popup>
   </view>
@@ -101,7 +102,6 @@
 
 <script>
 import MusicPlayback from "./MusicPlayback.vue";
-import USticky from "@/uni_modules/uview-plus/components/u-sticky/u-sticky.vue";
 import UPopup from "@/uni_modules/uview-plus/components/u-popup/u-popup.vue";
 
 export default {
@@ -211,19 +211,24 @@ export default {
         url: "/pages/myMusic/index",
       });
     },
+    //打开播放器
     open() {
       this.show = true;
     },
+    //关闭播放器
     close() {
       this.show = false;
     },
+    //点击列表事件
     clickList(item) {
       this.show = true;
       this.clickData = item;
     },
+    //播放器返回列表
     musicPlayToList(val) {
       this.show = val;
     },
+    //判断滚动吸顶
     handleScroll() {
       const scrollTop =
         window.pageYOffset ||
@@ -231,10 +236,29 @@ export default {
         document.body.scrollTop;
       this.isFixed = 160 <= scrollTop;
     },
+    //上一首
+    prevMusicHandle(val) {
+      let musicIndex = this.musicListData.findIndex(
+        (x) => x.musicName === val.musicName
+      );
+      this.clickData =
+        musicIndex === 0
+          ? this.musicListData[this.musicListData.length - 1]
+          : this.musicListData[musicIndex - 1];
+    },
+    //下一首
+    nextMusicHandle(val) {
+      let musicIndex = this.musicListData.findIndex(
+        (x) => x.musicName === val.musicName
+      );
+      this.clickData =
+        musicIndex === this.musicListData.length - 1
+          ? this.musicListData[0]
+          : this.musicListData[musicIndex + 1];
+    },
   },
   components: {
     UPopup,
-    USticky,
     MusicPlayback,
   },
 };
