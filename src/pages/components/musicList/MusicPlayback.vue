@@ -79,7 +79,7 @@ export default {
   methods: {
     //返回列表
     backListClick() {
-      this.$emit("musicPlayToList", this.show);
+      this.$emit("musicPlayToList", this.show, this.musicProps);
     },
     //音乐播放
     playMusic() {
@@ -88,20 +88,34 @@ export default {
       if (this.isPlaying) {
         music.play();
       } else {
-        music.stop();
+        music.pause();
       }
 
+      music.onPlay(() => {
+        //播放监听事件
+        console.log("开始播放");
+        this.isPlaying = true;
+      });
+      music.onPause(() => {
+        //暂停监听
+        console.log("暂停");
+        this.isPlaying = false;
+      });
+      music.onStop(() => {
+        //暂停监听
+        console.log("停止");
+      });
       music.onEnded((x) => {
         console.log(x, "音乐播放结束");
       });
     },
     //上一首
     prevMusic() {
-      this.$emit("prevMusicHandle", this.musicProps);
+      this.$emit("prevMusicHandle", this.musicProps, this.loopType);
     },
     //下一首
     nextMusic() {
-      this.$emit("nextMusicHandle", this.musicProps);
+      this.$emit("nextMusicHandle", this.musicProps, this.loopType);
     },
     //播放模式
     loopHandle() {

@@ -69,7 +69,9 @@
           class="content_menu"
           v-for="(item, index) in musicListData"
         >
-          <view class="menu_front">
+          <view
+            :class="index === selected ? 'menu_front_selected' : 'menu_front'"
+          >
             <view class="sort">{{ index + 1 }}</view>
             <view class="menu_info">
               <view class="name">{{ item.musicName }}</view>
@@ -108,9 +110,10 @@ export default {
   data() {
     return {
       titleName: "歌单",
-      show: false,
-      clickData: {},
+      show: false, //播放器popup状态
+      clickData: {}, //当前播放
       isFixed: false,
+      selected: 999,
       buttonList: [
         {
           label: "分享",
@@ -211,11 +214,11 @@ export default {
         url: "/pages/myMusic/index",
       });
     },
-    //打开播放器
+    //打开播放器popup
     open() {
       this.show = true;
     },
-    //关闭播放器
+    //关闭播放器popup
     close() {
       this.show = false;
     },
@@ -224,8 +227,11 @@ export default {
       this.show = true;
       this.clickData = item;
     },
-    //播放器返回列表
-    musicPlayToList(val) {
+    //播放器返回列表 val:popup打开状态 item:当前播放音乐
+    musicPlayToList(val, item) {
+      this.selected = this.musicListData.findIndex(
+        (x) => x.musicName === item.musicName
+      );
       this.show = val;
     },
     //判断滚动吸顶
@@ -236,25 +242,39 @@ export default {
         document.body.scrollTop;
       this.isFixed = 160 <= scrollTop;
     },
-    //上一首
-    prevMusicHandle(val) {
+    //上一首 val=上一首音乐数据 status=当前播放模式 0-列表循环 1-随机播放
+    prevMusicHandle(val, status) {
       let musicIndex = this.musicListData.findIndex(
         (x) => x.musicName === val.musicName
       );
-      this.clickData =
-        musicIndex === 0
-          ? this.musicListData[this.musicListData.length - 1]
-          : this.musicListData[musicIndex - 1];
+      if (status === 0) {
+        this.clickData =
+          musicIndex === 0
+            ? this.musicListData[this.musicListData.length - 1]
+            : this.musicListData[musicIndex - 1];
+      } else {
+        this.clickData =
+          this.musicListData[
+            Math.floor(Math.random() * this.musicListData.length)
+          ];
+      }
     },
-    //下一首
-    nextMusicHandle(val) {
+    //下一首 val=下一首音乐数据 status=当前播放模式 0-列表循环 1-随机播放
+    nextMusicHandle(val, status) {
       let musicIndex = this.musicListData.findIndex(
         (x) => x.musicName === val.musicName
       );
-      this.clickData =
-        musicIndex === this.musicListData.length - 1
-          ? this.musicListData[0]
-          : this.musicListData[musicIndex + 1];
+      if (status === 0) {
+        this.clickData =
+          musicIndex === this.musicListData.length - 1
+            ? this.musicListData[0]
+            : this.musicListData[musicIndex + 1];
+      } else {
+        this.clickData =
+          this.musicListData[
+            Math.floor(Math.random() * this.musicListData.length)
+          ];
+      }
     },
   },
   components: {
@@ -484,6 +504,27 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .menu_front_selected {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          color: #f64842;
+
+          .sort {
+            padding: 0 15px 0 10px;
+          }
+
+          .name {
+            font-size: 15px;
+            font-weight: 400;
+            padding-bottom: 2px;
+          }
+
+          .author {
+            font-size: 12px;
+          }
+        }
 
         .menu_front {
           height: 100%;
