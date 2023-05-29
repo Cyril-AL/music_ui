@@ -20,8 +20,20 @@
           alt=""
       /></view>
     </view>
-    <view class="music_cover"></view>
+    <view class="music_cover">
+      <view class="album_art">
+          <img
+          class="fm"
+          :src="musicProps.coverImg"
+          alt=""
+      /></view>
+    </view>
     <view class="music_funtionBtn">
+      <view class="progress-bar">
+        <view class="progress-bg"></view>
+        <view class="progress-indicator"></view>
+        <view class="progress-pointer"></view>
+      </view>
       <view class="funtionBtn">
         <img @click="loopHandle" class="xh_img" :src="loopImage" alt="" />
         <img
@@ -175,12 +187,78 @@ export default {
   .music_cover {
     width: 100%;
     height: calc(100% - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: run 10s linear infinite paused;
+
+    @keyframes revolve {
+      25% {
+        transform: rotate(90deg);
+      }
+      50% {
+        transform: rotate(180deg);
+      }
+      75% {
+        transform: rotate(270deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    .album_art {
+      background: url("../../../static/myMusic/黑胶.png");
+      border-radius: 50%;
+      height: 40%;
+      width: 71%;
+      background-size: cover;
+      position: fixed;
+      animation: 20s revolve linear infinite;
+      img {
+        border-radius: 50%;
+        margin-left: 44px;
+        margin-top: 44px;
+      }
+    }
   }
 
   .music_funtionBtn {
     width: 100%;
     height: 150px;
-    border-top: 1px red solid;
+    .progress-bar {
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin-left: 32px;
+      height: 2px;
+      width: 80%;
+      cursor: pointer;
+      background: #aaa;
+    }
+    .progress-bar .progress-bg {
+      position: absolute;
+      left: 0;
+      height: 5px;
+      width: 100%;
+      background-color: hsla(0deg 83.4% 10.73% / 20%);
+    }
+    .progress-bar .progress-indicator {
+      position: absolute;
+      left: 0;
+      height: 5px;
+      width: 100%;
+      transform-origin: 0 0;
+      transform: scaleX(0);
+      background-color: #00a1d6;
+    }
+    .progress-bar .progress-pointer {
+      position: absolute;
+      left: 0;
+      height: 5px;
+      width: 5px;
+      border-radius: 50%;
+      background-color: #d0dadd;
+    }
 
     .funtionBtn {
       width: 100%;
