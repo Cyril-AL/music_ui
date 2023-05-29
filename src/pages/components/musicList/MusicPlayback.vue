@@ -1,5 +1,5 @@
 <template>
-  <view class="content">
+  <view class="musicPlayBack_content">
     <view class="titlebar">
       <view>
         <img
@@ -22,10 +22,7 @@
     </view>
     <view class="music_cover">
       <view class="album_art">
-          <img
-          class="fm"
-          :src="musicProps.coverImg"
-          alt=""
+        <img class="fm" :src="musicProps.coverImg" alt=""
       /></view>
     </view>
     <view class="music_funtionBtn">
@@ -49,26 +46,62 @@
           :src="require('../images/下一首.png')"
           alt=""
         />
-        <img class="lb_img" :src="require('../images/列表菜单.png')" alt="" />
+        <img
+          @click="expandListHandle"
+          class="lb_img"
+          :src="require('../images/列表菜单.png')"
+          alt=""
+        />
       </view>
     </view>
+
+    <u-popup :show="isExpand" @open="open" @close="close" :round="10">
+      <view class="expandList">
+        <view v-for="(item, index) in musicList">
+          <view class="container" @click="popupCutSong(item)">
+            <view
+              :class="
+                item.musicName === musicProps.musicName
+                  ? 'left_selectedContainer'
+                  : 'left_container'
+              "
+            >
+              <view class="sort">{{ index + 1 }}</view>
+              <view class="name">{{ item.musicName }}</view>
+            </view>
+            <view
+              :class="
+                item.musicName === musicProps.musicName
+                  ? 'right_selectedContainer'
+                  : 'right_container'
+              "
+              ><span>{{ item.author }}</span>
+            </view>
+          </view>
+        </view>
+      </view>
+    </u-popup>
   </view>
 </template>
 
 <script>
+import UPopup from "@/uni_modules/uview-plus/components/u-popup/u-popup.vue";
+
 let music = null;
 music = uni.createInnerAudioContext();
 
 export default {
+  components: { UPopup },
   data() {
     return {
-      show: false,
+      isExpand: false, //是否打开播放器内列表
       isPlaying: false,
       loopType: 0, //0=>列表循环 1=>随机播放
     };
   },
   props: {
     musicProps: {},
+    musicList: [],
   },
   computed: {
     playImage() {
@@ -91,7 +124,21 @@ export default {
   methods: {
     //返回列表
     backListClick() {
-      this.$emit("musicPlayToList", this.show, this.musicProps);
+      this.$emit("musicPlayToList", this.musicProps);
+    },
+    //展开播放器内列表信息
+    expandListHandle() {
+      this.isExpand = true;
+      console.log(this.isExpand);
+    },
+    //打开内列表popup
+    open() {
+      console.log("打开");
+    },
+    //关闭内列表popup
+    close() {
+      this.isExpand = false;
+      console.log("关闭");
     },
     //音乐播放
     playMusic() {
@@ -133,17 +180,25 @@ export default {
     loopHandle() {
       this.loopType === 0 ? (this.loopType = 1) : (this.loopType = 0);
     },
+    //popup中切换歌曲
+    popupCutSong(val) {
+      music.src = val.musicUrl;
+      this.musicProps = val;
+      music.play();
+      this.isExpand = false;
+    },
   },
 };
 </script>
 
 <style lang="less">
-.content {
+.musicPlayBack_content {
   width: 100%;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
   background: linear-gradient(to bottom, #090909, #454746, #060606);
+  overflow: hidden;
 
   .titlebar {
     width: 100%;
@@ -286,6 +341,85 @@ export default {
       .lb_img {
         width: 30px;
         height: 30px;
+      }
+    }
+  }
+
+  .expandList {
+    width: 100%;
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .container {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .left_selectedContainer {
+        width: 70%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #f64842;
+
+        .sort {
+          padding: 0 15px 0 10px;
+        }
+
+        .name {
+          font-size: 15px;
+          font-weight: 400;
+          padding-bottom: 2px;
+        }
+      }
+
+      .left_container {
+        width: 70%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+
+        .sort {
+          padding: 0 15px 0 10px;
+        }
+
+        .name {
+          font-size: 15px;
+          font-weight: 400;
+          padding-bottom: 2px;
+        }
+      }
+
+      .right_selectedContainer {
+        width: 20%;
+        display: flex;
+        justify-content: flex-start;
+        font-size: 12px;
+        color: #f64842;
+
+        span {
+          width: 70px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .right_container {
+        width: 20%;
+        display: flex;
+        justify-content: flex-start;
+        font-size: 12px;
+
+        span {
+          width: 70px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
   }

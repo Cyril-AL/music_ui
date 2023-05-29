@@ -94,6 +94,7 @@
       <view style="height: 100vh"
         ><MusicPlayback
           :musicProps="clickData"
+          :musicList="musicListData"
           @musicPlayToList="musicPlayToList"
           @prevMusicHandle="prevMusicHandle"
           @nextMusicHandle="nextMusicHandle"
@@ -228,11 +229,11 @@ export default {
       this.clickData = item;
     },
     //播放器返回列表 val:popup打开状态 item:当前播放音乐
-    musicPlayToList(val, item) {
+    musicPlayToList(item) {
       this.selected = this.musicListData.findIndex(
         (x) => x.musicName === item.musicName
       );
-      this.show = val;
+      this.show = false;
     },
     //判断滚动吸顶
     handleScroll() {
