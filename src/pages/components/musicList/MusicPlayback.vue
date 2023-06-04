@@ -249,6 +249,15 @@ export default {
     justify-content: center;
     align-items: center;
     animation: run 10s linear infinite paused;
+    .zhizhen {
+      width: 187px;
+      height: 480px;
+      margin-left: 171px;
+
+      .zz {
+        width: 170px;
+      }
+    }
 
     @keyframes revolve {
       25% {
@@ -264,9 +273,7 @@ export default {
         transform: rotate(360deg);
       }
     }
-    .zhizhen {
 
-    }
     .album_art {
       background: url("../../../static/myMusic/黑胶.png");
       border-radius: 50%;
