@@ -151,32 +151,36 @@ export default {
         music.play();
       } else {
         music.pause();
+        console.log("run");
       }
 
+      //播放监听事件
       music.onPlay(() => {
-        //播放监听事件
         console.log("开始播放");
         this.isPlaying = true;
       });
+      //暂停监听
       music.onPause(() => {
-        //暂停监听
         console.log("暂停");
         this.isPlaying = false;
       });
+      //暂停监听
       music.onStop(() => {
-        //暂停监听
         console.log("停止");
       });
       music.onEnded((x) => {
         console.log(x, "音乐播放结束");
+        this.$emit("prevMusicHandle", this.musicProps, this.loopType);
       });
     },
     //上一首
     prevMusic() {
+      music.stop();
       this.$emit("prevMusicHandle", this.musicProps, this.loopType);
     },
     //下一首
     nextMusic() {
+      music.stop();
       this.$emit("nextMusicHandle", this.musicProps, this.loopType);
     },
     //播放模式
@@ -189,6 +193,16 @@ export default {
       this.musicProps = val;
       music.play();
       this.isExpand = false;
+    },
+  },
+  watch: {
+    musicProps: {
+      handler(new__, old__) {
+        console.log(new__, old__);
+        this.isExpand = false;
+        music.src = new__.musicUrl;
+        music.play();
+      },
     },
   },
 };
