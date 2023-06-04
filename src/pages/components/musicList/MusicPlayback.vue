@@ -25,7 +25,10 @@
         <img class="zz" src="../../../static/myMusic/指针.png" alt="" />
       </view>
       <view class="album_art">
-        <img class="fm" :src="musicProps.coverImg" alt=""
+        <img
+          :class="isPlaying ? 'running' : 'pause'"
+          :src="musicProps.coverImg"
+          alt=""
       /></view>
     </view>
     <view class="music_funtionBtn">
@@ -307,11 +310,18 @@ export default {
       width: 71%;
       background-size: cover;
       position: fixed;
-      animation: 20s revolve linear infinite;
+
       img {
         border-radius: 50%;
         margin-left: 44px;
         margin-top: 44px;
+        animation: 20s revolve linear infinite;
+      }
+      .running {
+        animation-play-state: running;
+      }
+      .pause {
+        animation-play-state: paused;
       }
     }
   }
