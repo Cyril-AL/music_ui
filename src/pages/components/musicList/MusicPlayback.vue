@@ -21,6 +21,9 @@
       /></view>
     </view>
     <view class="music_cover">
+      <view class="zhizhen">
+        <img class="zz" src="../../../static/myMusic/指针.png" alt="" />
+      </view>
       <view class="album_art">
         <img class="fm" :src="musicProps.coverImg" alt=""
       /></view>
@@ -260,6 +263,9 @@ export default {
       100% {
         transform: rotate(360deg);
       }
+    }
+    .zhizhen {
+
     }
     .album_art {
       background: url("../../../static/myMusic/黑胶.png");
