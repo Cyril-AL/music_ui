@@ -100,6 +100,7 @@ export default {
       isExpand: false, //是否打开播放器内列表
       isPlaying: false,
       loopType: 0, //0=>列表循环 1=>随机播放
+      musicTime: 0,
     };
   },
   props: {
@@ -154,6 +155,11 @@ export default {
         console.log("run");
       }
 
+      //音频播放进度更新事件
+      music.onTimeUpdate(() => {
+        console.log("监听开始播放");
+      });
+
       //播放监听事件
       music.onPlay(() => {
         console.log("开始播放");
@@ -198,7 +204,13 @@ export default {
   watch: {
     musicProps: {
       handler(new__, old__) {
-        console.log(new__, old__);
+        let intervalID = setInterval(() => {
+          if (music.duration !== 0) {
+            clearInterval(intervalID);
+            this.musicTime = (music.duration / 60).toFixed(2);
+            console.log("音频时长", this.musicTime);
+          }
+        }, 500);
         this.isExpand = false;
         music.src = new__.musicUrl;
         music.play();
