@@ -40,9 +40,6 @@
           height="3"
           activeColor="#f64842"
         ></u-line-progress>
-        <!--        <view class="progress-bg"></view>-->
-        <!--        <view class="progress-indicator"></view>-->
-        <!--        <view class="progress-pointer"></view>-->
         <view class="endTime">{{ musicEndTime }}</view>
       </view>
       <view class="funtionBtn">
@@ -392,33 +389,6 @@ export default {
       .endTime {
         position: absolute;
         right: -50px;
-      }
-
-      .progress-bg {
-        position: absolute;
-        left: 0;
-        height: 5px;
-        width: 100%;
-        background-color: hsla(0deg 83.4% 10.73% / 20%);
-      }
-
-      .progress-indicator {
-        position: absolute;
-        left: 0;
-        height: 5px;
-        width: 100%;
-        transform-origin: 0 0;
-        transform: scaleX(0);
-        background-color: #00a1d6;
-      }
-
-      .progress-pointer {
-        position: absolute;
-        left: 0;
-        height: 5px;
-        width: 5px;
-        border-radius: 50%;
-        background-color: #d0dadd;
       }
     }
 
