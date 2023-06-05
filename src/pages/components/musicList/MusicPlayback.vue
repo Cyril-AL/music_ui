@@ -157,8 +157,7 @@ export default {
           (second >= 10 ? second : "0" + second);
       }
 
-      let endTime =
-        AudioContext.duration.toFixed(0) - AudioContext.currentTime.toFixed(0);
+      let endTime = AudioContext.duration.toFixed(0);
       let endMin = Math.floor(endTime / 60);
       let endSecond = endTime % 60;
       if (endTime) {
