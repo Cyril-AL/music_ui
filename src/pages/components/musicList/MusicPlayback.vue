@@ -381,6 +381,11 @@ export default {
         left: -50px;
       }
 
+      .endTime {
+        position: absolute;
+        right: -50px;
+      }
+
       .progress-bg {
         position: absolute;
         left: 0;
@@ -406,11 +411,6 @@ export default {
         width: 5px;
         border-radius: 50%;
         background-color: #d0dadd;
-      }
-
-      .endTime {
-        position: absolute;
-        right: -50px;
       }
     }
 
