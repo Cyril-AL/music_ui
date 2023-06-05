@@ -34,9 +34,15 @@
     <view class="music_funtionBtn">
       <view class="progress-bar">
         <view class="startTime">{{ musicStartTime }}</view>
-        <view class="progress-bg"></view>
-        <view class="progress-indicator"></view>
-        <view class="progress-pointer"></view>
+        <u-line-progress
+          :percentage="precent"
+          :showText="false"
+          height="3"
+          activeColor="#f64842"
+        ></u-line-progress>
+        <!--        <view class="progress-bg"></view>-->
+        <!--        <view class="progress-indicator"></view>-->
+        <!--        <view class="progress-pointer"></view>-->
         <view class="endTime">{{ musicEndTime }}</view>
       </view>
       <view class="funtionBtn">
@@ -94,10 +100,11 @@
 
 <script>
 import UPopup from "@/uni_modules/uview-plus/components/u-popup/u-popup.vue";
+import ULineProgress from "@/uni_modules/uview-plus/components/u-line-progress/u-line-progress.vue";
 
 let AudioContext = uni.createInnerAudioContext();
 export default {
-  components: { UPopup },
+  components: { ULineProgress, UPopup },
   data() {
     return {
       isExpand: false, //是否打开播放器内列表
@@ -105,6 +112,7 @@ export default {
       loopType: 0, //0=>列表循环 1=>随机播放
       musicEndTime: "00:00", //音乐结束时间
       musicStartTime: "00:00", //音乐开始时间
+      precent: 0,
     };
   },
   props: {
@@ -162,6 +170,7 @@ export default {
           ":" +
           (endSecond >= 10 ? endSecond : "0" + endSecond);
       }
+      this.precent = (AudioContext.currentTime / AudioContext.duration) * 100;
     });
 
     //播放监听事件
@@ -192,7 +201,7 @@ export default {
     },
     //打开内列表popup
     open() {
-      console.log("打开");
+      this.isExpand = true;
     },
     //关闭内列表popup
     close() {
@@ -211,7 +220,6 @@ export default {
     //上一首
     prevMusic() {
       AudioContext.stop();
-      console.log(this.musicEndTime);
       this.$emit("prevMusicHandle", this.musicProps, this.loopType);
     },
     //下一首
