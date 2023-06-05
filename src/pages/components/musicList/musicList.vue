@@ -146,7 +146,7 @@ export default {
           musicName: "得不到你",
           author: "Fine乐团",
           coverImg: require("@/static/audio/得不到你.png"),
-          musicUrl: "/static/audio/Fine乐团 - Fine乐团 - 得不到你.mp3",
+          musicUrl: "/static/audio/Fine乐团 - 得不到你.mp3",
         },
         {
           musicName: "城市动物园 (live版)",

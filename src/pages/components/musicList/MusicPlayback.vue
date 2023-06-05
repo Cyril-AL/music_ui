@@ -33,9 +33,11 @@
     </view>
     <view class="music_funtionBtn">
       <view class="progress-bar">
+        <view class="startTime">{{ musicStartTime }}</view>
         <view class="progress-bg"></view>
         <view class="progress-indicator"></view>
         <view class="progress-pointer"></view>
+        <view class="endTime">{{ musicEndTime }}</view>
       </view>
       <view class="funtionBtn">
         <img @click="loopHandle" class="xh_img" :src="loopImage" alt="" />
@@ -93,9 +95,7 @@
 <script>
 import UPopup from "@/uni_modules/uview-plus/components/u-popup/u-popup.vue";
 
-let music = null;
-music = uni.createInnerAudioContext();
-
+let AudioContext = uni.createInnerAudioContext();
 export default {
   components: { UPopup },
   data() {
@@ -103,7 +103,8 @@ export default {
       isExpand: false, //是否打开播放器内列表
       isPlaying: false,
       loopType: 0, //0=>列表循环 1=>随机播放
-      musicTime: 0,
+      musicEndTime: "00:00", //音乐结束时间
+      musicStartTime: "00:00", //音乐开始时间
     };
   },
   props: {
@@ -123,10 +124,62 @@ export default {
     },
   },
   mounted() {
-    console.log("准备播放");
-    music.src = this.musicProps.musicUrl;
+    AudioContext.src = this.musicProps.musicUrl;
+    let intervalID = setInterval(() => {
+      if (AudioContext.duration !== 0) {
+        clearInterval(intervalID);
+        let time = AudioContext.duration.toFixed(0);
+        let min = Math.floor(time / 60);
+        let second = time % 60;
+        this.musicEndTime =
+          (min > 10 ? min : "0" + min) +
+          ":" +
+          (second > 10 ? second : "0" + second);
+      } else this.musicEndTime = "00:00";
+    }, 500);
     this.isPlaying = true;
-    music.play();
+    AudioContext.play();
+
+    //音频播放进度更新事件
+    AudioContext.onTimeUpdate(() => {
+      let time = AudioContext.currentTime.toFixed(0);
+      let min = Math.floor(time / 60);
+      let second = time % 60;
+      if (time) {
+        this.musicStartTime =
+          (min >= 10 ? min : "0" + min) +
+          ":" +
+          (second >= 10 ? second : "0" + second);
+      }
+
+      let endTime =
+        AudioContext.duration.toFixed(0) - AudioContext.currentTime.toFixed(0);
+      let endMin = Math.floor(endTime / 60);
+      let endSecond = endTime % 60;
+      if (endTime) {
+        this.musicEndTime =
+          (endMin >= 10 ? endMin : "0" + endMin) +
+          ":" +
+          (endSecond >= 10 ? endSecond : "0" + endSecond);
+      }
+    });
+
+    //播放监听事件
+    AudioContext.onPlay(() => {
+      // console.log("播放事件监听");
+    });
+    //暂停监听
+    AudioContext.onPause(() => {
+      console.log("暂停事件监听");
+    });
+    //暂停监听
+    AudioContext.onStop(() => {
+      console.log("停止事件监听");
+    });
+    AudioContext.onEnded((x) => {
+      // console.log(x, "音乐播放自然结束事件监听");
+      this.$emit("prevMusicHandle", this.musicProps, this.loopType);
+    });
   },
   methods: {
     //返回列表
@@ -136,7 +189,6 @@ export default {
     //展开播放器内列表信息
     expandListHandle() {
       this.isExpand = true;
-      console.log(this.isExpand);
     },
     //打开内列表popup
     open() {
@@ -145,51 +197,26 @@ export default {
     //关闭内列表popup
     close() {
       this.isExpand = false;
-      console.log("关闭");
     },
     //音乐播放
     playMusic() {
-      music.src = this.musicProps.musicUrl;
+      AudioContext.src = this.musicProps.musicUrl;
       this.isPlaying = this.isPlaying === false;
       if (this.isPlaying) {
-        music.play();
+        AudioContext.play();
       } else {
-        music.pause();
-        console.log("run");
+        AudioContext.stop();
       }
-
-      //音频播放进度更新事件
-      music.onTimeUpdate(() => {
-        console.log("监听开始播放");
-      });
-
-      //播放监听事件
-      music.onPlay(() => {
-        console.log("开始播放");
-        this.isPlaying = true;
-      });
-      //暂停监听
-      music.onPause(() => {
-        console.log("暂停");
-        this.isPlaying = false;
-      });
-      //暂停监听
-      music.onStop(() => {
-        console.log("停止");
-      });
-      music.onEnded((x) => {
-        console.log(x, "音乐播放结束");
-        this.$emit("prevMusicHandle", this.musicProps, this.loopType);
-      });
     },
     //上一首
     prevMusic() {
-      music.stop();
+      AudioContext.stop();
+      console.log(this.musicEndTime);
       this.$emit("prevMusicHandle", this.musicProps, this.loopType);
     },
     //下一首
     nextMusic() {
-      music.stop();
+      AudioContext.stop();
       this.$emit("nextMusicHandle", this.musicProps, this.loopType);
     },
     //播放模式
@@ -198,9 +225,9 @@ export default {
     },
     //popup中切换歌曲
     popupCutSong(val) {
-      music.src = val.musicUrl;
+      AudioContext.src = val.musicUrl;
       this.musicProps = val;
-      music.play();
+      AudioContext.play();
       this.isExpand = false;
     },
   },
@@ -208,16 +235,24 @@ export default {
     musicProps: {
       handler(new__, old__) {
         let intervalID = setInterval(() => {
-          if (music.duration !== 0) {
+          if (AudioContext.duration !== 0) {
             clearInterval(intervalID);
-            this.musicTime = (music.duration / 60).toFixed(2);
-            console.log("音频时长", this.musicTime);
-          }
+            let time = AudioContext.duration.toFixed(0);
+            let min = Math.floor(time / 60);
+            let second = time % 60;
+            this.musicEndTime =
+              (min > 10 ? min : "0" + min) +
+              ":" +
+              (second > 10 ? second : "0" + second);
+          } else this.musicEndTime = "00:00";
         }, 500);
         this.isExpand = false;
-        music.src = new__.musicUrl;
-        music.play();
+        AudioContext.src = new__.musicUrl;
+        AudioContext.play();
       },
+    },
+    isPlaying: {
+      handler(new__, old__) {},
     },
   },
 };
@@ -329,39 +364,54 @@ export default {
   .music_funtionBtn {
     width: 100%;
     height: 150px;
+
     .progress-bar {
       display: flex;
       align-items: center;
       position: relative;
-      margin-left: 32px;
+      margin-left: 72px;
       height: 2px;
-      width: 80%;
+      width: 60%;
       cursor: pointer;
       background: #aaa;
-    }
-    .progress-bar .progress-bg {
-      position: absolute;
-      left: 0;
-      height: 5px;
-      width: 100%;
-      background-color: hsla(0deg 83.4% 10.73% / 20%);
-    }
-    .progress-bar .progress-indicator {
-      position: absolute;
-      left: 0;
-      height: 5px;
-      width: 100%;
-      transform-origin: 0 0;
-      transform: scaleX(0);
-      background-color: #00a1d6;
-    }
-    .progress-bar .progress-pointer {
-      position: absolute;
-      left: 0;
-      height: 5px;
-      width: 5px;
-      border-radius: 50%;
-      background-color: #d0dadd;
+      color: white;
+
+      .startTime {
+        position: absolute;
+        left: -50px;
+      }
+
+      .progress-bg {
+        position: absolute;
+        left: 0;
+        height: 5px;
+        width: 100%;
+        background-color: hsla(0deg 83.4% 10.73% / 20%);
+      }
+
+      .progress-indicator {
+        position: absolute;
+        left: 0;
+        height: 5px;
+        width: 100%;
+        transform-origin: 0 0;
+        transform: scaleX(0);
+        background-color: #00a1d6;
+      }
+
+      .progress-pointer {
+        position: absolute;
+        left: 0;
+        height: 5px;
+        width: 5px;
+        border-radius: 50%;
+        background-color: #d0dadd;
+      }
+
+      .endTime {
+        position: absolute;
+        right: -50px;
+      }
     }
 
     .funtionBtn {
