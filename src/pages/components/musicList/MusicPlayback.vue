@@ -22,7 +22,11 @@
     </view>
     <view class="music_cover">
       <view class="zhizhen">
-        <img class="zz" src="../../../static/myMusic/指针.png" alt="" />
+        <img
+          :class="isPlaying ? 'zzMove' : 'zzHoming'"
+          src="../../../static/myMusic/指针.png"
+          alt=""
+        />
       </view>
       <view class="album_art">
         <img
@@ -156,16 +160,6 @@ export default {
           ":" +
           (second >= 10 ? second : "0" + second);
       }
-
-      let endTime = AudioContext.duration.toFixed(0);
-      let endMin = Math.floor(endTime / 60);
-      let endSecond = endTime % 60;
-      if (endTime) {
-        this.musicEndTime =
-          (endMin >= 10 ? endMin : "0" + endMin) +
-          ":" +
-          (endSecond >= 10 ? endSecond : "0" + endSecond);
-      }
       this.precent = (AudioContext.currentTime / AudioContext.duration) * 100;
     });
 
@@ -210,7 +204,7 @@ export default {
       if (this.isPlaying) {
         AudioContext.play();
       } else {
-        AudioContext.stop();
+        AudioContext.pause();
       }
     },
     //上一首
@@ -321,9 +315,19 @@ export default {
       width: 187px;
       height: 480px;
       margin-left: 171px;
+      z-index: 999;
 
-      .zz {
+      .zzMove {
         width: 170px;
+        transform: rotate(35deg);
+        transform-origin: 18px 18px;
+        transition-duration: 0.5s;
+      }
+      .zzHoming {
+        width: 170px;
+        transform: rotate(0deg);
+        transform-origin: 18px 18px;
+        transition-duration: 0.5s;
       }
     }
 
