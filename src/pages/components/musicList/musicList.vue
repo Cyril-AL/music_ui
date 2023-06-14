@@ -4,19 +4,19 @@
       <view
         ><img
           @click="backFunClick"
-          :src="require('../../../static/myMusic/返回.png')"
+          :src="require('../../../static/myMusic/return.png')"
           alt=""
       /></view>
       <view class="bar_name">{{ titleName }}</view>
       <view>
         <img
           class="search"
-          :src="require('../../../static/myMusic/搜索.png')"
+          :src="require('../../../static/myMusic/Search.png')"
           alt=""
         />
         <img
           class="menu"
-          :src="require('../../../static/myMusic/右侧菜单.png')"
+          :src="require('../../../static/myMusic/rightMenu.png')"
           alt=""
         />
       </view>
@@ -27,7 +27,7 @@
         <view class="title_info">
           <img
             class="fengmian"
-            :src="require('../images/喜欢的音乐封面.png')"
+            :src="require('../images/FavoriteMusicCover.png')"
             alt=""
           />
           <view class="title">
@@ -37,7 +37,7 @@
               山林不向四季起誓_cyril
               <img
                 class="tomyInfo"
-                :src="require('../../../static/myMusic/返回.png')"
+                :src="require('../../../static/myMusic/return.png')"
                 alt=""
               />
             </view>
@@ -54,7 +54,7 @@
       <view :class="isFixed ? 'celling' : 'playerAll'">
         <view class="backColorLine" />
         <img
-          :src="require('../../../static/myMusic/songSheet/播放.png')"
+          :src="require('../../../static/myMusic/songSheet/Play.png')"
           alt=""
         />
         <view class="boFangAll"
@@ -80,9 +80,9 @@
           </view>
 
           <view class="menu_behind">
-            <img :src="require('../images/播放.png')" alt="" />
+            <img :src="require('../images/play.png')" alt="" />
             <img
-              :src="require('../../../static/myMusic/右侧菜单.png')"
+              :src="require('../../../static/myMusic/rightMenu.png')"
               alt=""
             />
           </view>
@@ -118,41 +118,41 @@ export default {
       buttonList: [
         {
           label: "分享",
-          logo: require("../images/分享.png"),
+          logo: require("../images/share.png"),
         },
         {
           label: "评论",
-          logo: require("../images/评论.png"),
+          logo: require("../images/comments.png"),
         },
         {
           label: "收藏",
-          logo: require("../images/收藏.png"),
+          logo: require("../images/collection.png"),
         },
       ],
       musicListData: [
         {
           musicName: "没有人不比我快乐",
           author: "Fine乐团",
-          coverImg: require("@/static/audio/没有人不比我快乐.png"),
-          musicUrl: "/static/audio/Fine乐团 - 没有人不比我快乐.mp3",
+          coverImg: require("@/static/audio/There is no one who is happier than me.png"),
+          musicUrl: "/static/audio/ThereIsNoOneWhoIsHappierThanMe.mp3",
         },
         {
           musicName: "New Boy",
           author: "房东的猫,陈婧霏",
           coverImg: require("@/static/audio/NewBoy.png"),
-          musicUrl: "/static/audio/房东的猫,陈婧霏 - New Boy.mp3",
+          musicUrl: "/static/audio/New Boy.mp3",
         },
         {
           musicName: "得不到你",
           author: "Fine乐团",
-          coverImg: require("@/static/audio/得不到你.png"),
-          musicUrl: "/static/audio/Fine乐团 - 得不到你.mp3",
+          coverImg: require("@/static/audio/Can't get you.png"),
+          musicUrl: "/static/audio/Can't get you.mp3",
         },
         {
           musicName: "城市动物园 (live版)",
           author: "房东的猫",
-          coverImg: require("@/static/audio/城市动物园.png"),
-          musicUrl: "/static/audio/房东的猫 - 城市动物园 (live版).mp3",
+          coverImg: require("@/static/audio/City Zoo.png"),
+          musicUrl: "/static/audio/City Zoo.mp3",
         },
         {
           musicName: "I Need a Doctor",
@@ -164,20 +164,20 @@ export default {
         {
           musicName: "沉醉于风中",
           author: "S.E.N.S",
-          coverImg: require("@/static/audio/沉醉于风中.png"),
-          musicUrl: "/static/audio/S.E.N.S. - 沉醉于风中.mp3",
+          coverImg: require("@/static/audio/Indulge in the wind.png"),
+          musicUrl: "/static/audio/Indulge in the wind.mp3",
         },
         {
           musicName: "光よ、ふたたび",
           author: "矢野立美",
-          coverImg: require("@/static/audio/人类的光.png"),
-          musicUrl: "/static/audio/矢野立美 - 光よ、ふたたび.mp3",
+          coverImg: require("@/static/audio/Human light.png"),
+          musicUrl: "/static/audio/Human light.mp3",
         },
         {
           musicName: "天涯",
           author: "群星",
-          coverImg: require("@/static/audio/天涯.png"),
-          musicUrl: "/static/audio/群星 - 天涯.mp3",
+          coverImg: require("@/static/audio/End of the world.png"),
+          musicUrl: "/static/audio/End of the world.mp3",
         },
         {
           musicName: "Past Lives",
@@ -188,20 +188,20 @@ export default {
         {
           musicName: "山鬼",
           author: "洛尘鞅_",
-          coverImg: require("@/static/audio/山鬼.png"),
-          musicUrl: "/static/audio/洛尘鞅_ - 山鬼.mp3",
+          coverImg: require("@/static/audio/Mountain ghosts.png"),
+          musicUrl: "/static/audio/Mountain ghosts.mp3",
         },
         {
           musicName: "陌上花开（Cover 小爱的妈）",
           author: "玄觞",
-          coverImg: require("@/static/audio/陌上花开.png"),
-          musicUrl: "/static/audio/玄觞 - 陌上花开（Cover 小爱的妈）.mp3",
+          coverImg: require("@/static/audio/Flowers bloom on the stranger.png"),
+          musicUrl: "/static/audio/Flowers bloom on the stranger.mp3",
         },
         {
           musicName: "好几年",
           author: "许晴",
-          coverImg: require("@/static/audio/好几年.png"),
-          musicUrl: "/static/audio/许晴 - 好几年.mp3",
+          coverImg: require("@/static/audio/For several years.png"),
+          musicUrl: "/static/audio/For several years.mp3",
         },
       ],
     };

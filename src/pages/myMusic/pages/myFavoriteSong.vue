@@ -1,7 +1,7 @@
 <template>
 	<view class="content" @click="navigateList">
 		<view class="left_container">
-			<img :src="require('../../../static/myMusic/喜欢的音乐封面.png')" />
+			<img :src="require('../../../static/myMusic/favoriteMusicCover.png')" />
 			<view class="left_info">
 				<view class="left_title">我喜欢的音乐</view>
 				<view class="left_value">787首</view>
@@ -9,7 +9,7 @@
 		</view>
 		<view class="right_container">
 			<view class="right_info">
-				<img :src="require('../../../static/myMusic/心动.png')" />
+				<img :src="require('../../../static/myMusic/Heart.png')" />
 				<span>心动模式</span>
 			</view>
 		</view>

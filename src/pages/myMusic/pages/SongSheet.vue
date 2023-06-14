@@ -12,14 +12,14 @@ export default {
 	data() {
 		return {
 			data: [
-				{ label: '最近播放', value: require('../../../static/myMusic/songSheet/最近播放.png') },
-				{ label: '本地/下载', value: require('../../../static/myMusic/songSheet/本地下载.png') },
-				{ label: '  云盘  ', value: require('../../../static/myMusic/songSheet/云盘.png') },
-				{ label: '  已购  ', value: require('../../../static/myMusic/songSheet/已购项目.png') },
-				{ label: '我的好友', value: require('../../../static/myMusic/songSheet/我的好友.png') },
-				{ label: '收藏和赞', value: require('../../../static/myMusic/songSheet/收藏.png') },
-				{ label: '我的播客', value: require('../../../static/myMusic/songSheet/信号.png') },
-				{ label: '乐谜团', value: require('../../../static/myMusic/songSheet/粉丝.png') }
+				{ label: '最近播放', value: require('../../../static/myMusic/songSheet/recentlyPlayed.png') },
+				{ label: '本地/下载', value: require('../../../static/myMusic/songSheet/downloadLocally.png') },
+				{ label: '  云盘  ', value: require('../../../static/myMusic/songSheet/cloudDisk.png') },
+				{ label: '  已购  ', value: require('../../../static/myMusic/songSheet/purchasedItems.png') },
+				{ label: '我的好友', value: require('../../../static/myMusic/songSheet/myBuddy.png') },
+				{ label: '收藏和赞', value: require('../../../static/myMusic/songSheet/collection.png') },
+				{ label: '我的播客', value: require('../../../static/myMusic/songSheet/Signal.png') },
+				{ label: '乐谜团', value: require('../../../static/myMusic/songSheet/aFanOfSomeone.png') }
 			]
 		};
 	},

@@ -5,7 +5,7 @@
         <img
           class="back_img"
           @click="backListClick"
-          :src="require('../images/向下箭头.png')"
+          :src="require('../images/downArrow.png')"
           alt=""
         />
       </view>
@@ -16,7 +16,7 @@
       <view
         ><img
           class="share_img"
-          :src="require('@/static/audio/分享.png')"
+          :src="require('@/static/audio/share.png')"
           alt=""
       /></view>
     </view>
@@ -24,7 +24,7 @@
       <view class="zhizhen">
         <img
           :class="isPlaying ? 'zzMove' : 'zzHoming'"
-          src="../../../static/myMusic/指针.png"
+          src="../../../static/myMusic/pointer.png"
           alt=""
         />
       </view>
@@ -51,20 +51,20 @@
         <img
           @click="prevMusic"
           class="sys_img"
-          :src="require('../images/上一首.png')"
+          :src="require('../images/preMusic.png')"
           alt=""
         />
         <img @click="playMusic" class="bf_img" :src="playImage" alt="" />
         <img
           @click="nextMusic"
           class="xys_img"
-          :src="require('../images/下一首.png')"
+          :src="require('../images/nextMusic.png')"
           alt=""
         />
         <img
           @click="expandListHandle"
           class="lb_img"
-          :src="require('../images/列表菜单.png')"
+          :src="require('../images/listMenu.png')"
           alt=""
         />
       </view>
@@ -123,13 +123,13 @@ export default {
   computed: {
     playImage() {
       return this.isPlaying
-        ? "/static/components/暂停.png"
-        : "/static/components/播放器.png";
+        ? "/static/components/timeOut.png"
+        : "/static/components/player.png";
     },
     loopImage() {
       return this.loopType === 0
-        ? "/static/components/列表循环.png"
-        : "/static/components/随机播放.png";
+        ? "/static/components/List loop.png"
+        : "/static/components/Shuffle.png";
     },
   },
   mounted() {
@@ -165,7 +165,7 @@ export default {
 
     //播放监听事件
     AudioContext.onPlay(() => {
-      // console.log("播放事件监听");
+      console.log("播放事件监听");
     });
     //暂停监听
     AudioContext.onPause(() => {
@@ -175,7 +175,7 @@ export default {
     AudioContext.onStop(() => {
       console.log("停止事件监听");
     });
-    AudioContext.onEnded((x) => {
+    AudioContext.onEnded(() => {
       // console.log(x, "音乐播放自然结束事件监听");
       this.$emit("prevMusicHandle", this.musicProps, this.loopType);
     });
@@ -201,10 +201,10 @@ export default {
     playMusic() {
       AudioContext.src = this.musicProps.musicUrl;
       this.isPlaying = this.isPlaying === false;
-      if (this.isPlaying) {
-        AudioContext.play();
-      } else {
+      if (!this.isPlaying) {
         AudioContext.pause();
+      } else {
+        AudioContext.play();
       }
     },
     //上一首
@@ -347,7 +347,7 @@ export default {
     }
 
     .album_art {
-      background: url("../../../static/myMusic/黑胶.png");
+      background: url("../../../static/myMusic/Vinyl.png");
       border-radius: 50%;
       height: 40%;
       width: 71%;
