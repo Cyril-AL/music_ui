@@ -209,6 +209,14 @@ export default {
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
+  onLoad() {
+    this.$Api.getPlatList("32953014").then(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {}
+    );
+  },
   methods: {
     backFunClick() {
       uni.switchTab({

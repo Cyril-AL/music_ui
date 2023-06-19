@@ -69,32 +69,32 @@
     "list": [
       {
         "pagePath": "pages/myFind/index",
-        "iconPath": "static/HomePage/发现-未激活.png",
-        "selectedIconPath": "static/HomePage/发现-激活.png",
+        "iconPath": "static/HomePage/Discovery - Not activated.png",
+        "selectedIconPath": "static/HomePage/Discovery - Activation.png",
         "text": "发现"
       },
       {
         "pagePath": "pages/myPodcast/index",
-        "iconPath": "static/HomePage/K歌-未激活.png",
-        "selectedIconPath": "static/HomePage/K歌-激活.png",
+        "iconPath": "static/HomePage/K Song - Not activated.png",
+        "selectedIconPath": "static/HomePage/K Song - Activation.png",
         "text": "博客"
       },
       {
         "pagePath": "pages/myMusic/index",
-        "iconPath": "static/HomePage/音乐-未激活.png",
-        "selectedIconPath": "static/HomePage/音乐-激活.png",
+        "iconPath": "static/HomePage/Music - Not activated.png",
+        "selectedIconPath": "static/HomePage/Music - activate.png",
         "text": "我的"
       },
       {
         "pagePath": "pages/myAttention/index",
-        "iconPath": "static/HomePage/关注-未激活.png",
-        "selectedIconPath": "static/HomePage/关注-激活.png",
+        "iconPath": "static/HomePage/Follow - Not activated.png",
+        "selectedIconPath": "static/HomePage/Follow - Activate.png",
         "text": "关注"
       },
       {
         "pagePath": "pages/myCommunity/index",
-        "iconPath": "static/HomePage/社区-未激活.png",
-        "selectedIconPath": "static/HomePage/社区-激活.png",
+        "iconPath": "static/HomePage/Community - Not activated.png",
+        "selectedIconPath": "static/HomePage/Community - Activation.png",
         "text": "社区"
       }
     ]
