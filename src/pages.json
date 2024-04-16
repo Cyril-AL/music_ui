@@ -1,7 +1,16 @@
 {
   "pages": [
+//    {
+//      "path": "pages/Login/index",
+//      "navigationStyle": "custom",
+//      "style": {
+//        "app-plus": {
+//          "titleNView": false
+//        }
+//      }
+//    },
     {
-      "path": "pages/myMusic/index",
+      "path": "pages/HomePages/index",
       "navigationStyle": "custom",
       "style": {
         "app-plus": {
@@ -10,7 +19,7 @@
       }
     },
     {
-      "path": "pages/myAttention/index",
+      "path": "pages/MyAccount/index",
       "navigationStyle": "custom",
       "style": {
         "app-plus": {
@@ -19,7 +28,7 @@
       }
     },
     {
-      "path": "pages/myCommunity/index",
+      "path": "pages/OnDaoFields/index",
       "navigationStyle": "custom",
       "style": {
         "app-plus": {
@@ -28,27 +37,9 @@
       }
     },
     {
-      "path": "pages/myFind/index",
+      "path": "pages/HallOfFame/index",
       "navigationStyle": "custom",
       "style": {
-        "app-plus": {
-          "titleNView": false
-        }
-      }
-    },
-    {
-      "path": "pages/myPodcast/index",
-      "navigationStyle": "custom",
-      "style": {
-        "app-plus": {
-          "titleNView": false
-        }
-      }
-    },
-    {
-      "path": "pages/components/musicList/musicList",
-      "style": {
-        "navigationBarTitleText": "音乐列表",
         "app-plus": {
           "titleNView": false
         }
@@ -62,40 +53,34 @@
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
-    "color": "#7A7E83",
-    "selectedColor": "#3cc51f",
+    "color": "#52555D",
+    "selectedColor": "#EAECF0",
     "borderStyle": "black",
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#192125",
     "list": [
       {
-        "pagePath": "pages/myFind/index",
-        "iconPath": "static/HomePage/Discovery - Not activated.png",
-        "selectedIconPath": "static/HomePage/Discovery - Activation.png",
-        "text": "发现"
+        "pagePath": "pages/HomePages/index",
+        "iconPath": "static/HomePage/首页-s.png",
+        "selectedIconPath": "static/HomePage/首页-s.png",
+        "text": "首页"
       },
       {
         "pagePath": "pages/myPodcast/index",
-        "iconPath": "static/HomePage/K Song - Not activated.png",
-        "selectedIconPath": "static/HomePage/K Song - Activation.png",
-        "text": "博客"
+        "iconPath": "static/HomePage/追梦榜-n.png",
+        "selectedIconPath": "static/HomePage/追梦榜-n.png",
+        "text": "名人堂"
       },
       {
         "pagePath": "pages/myMusic/index",
-        "iconPath": "static/HomePage/Music - Not activated.png",
-        "selectedIconPath": "static/HomePage/Music - activate.png",
-        "text": "我的"
+        "iconPath": "static/HomePage/小世界-n.png",
+        "selectedIconPath": "static/HomePage/小世界-n.png",
+        "text": "论道场"
       },
       {
         "pagePath": "pages/myAttention/index",
-        "iconPath": "static/HomePage/Follow - Not activated.png",
-        "selectedIconPath": "static/HomePage/Follow - Activate.png",
-        "text": "关注"
-      },
-      {
-        "pagePath": "pages/myCommunity/index",
-        "iconPath": "static/HomePage/Community - Not activated.png",
-        "selectedIconPath": "static/HomePage/Community - Activation.png",
-        "text": "社区"
+        "iconPath": "static/HomePage/我的-n.png",
+        "selectedIconPath": "static/HomePage/我的-n.png",
+        "text": "我的"
       }
     ]
   },

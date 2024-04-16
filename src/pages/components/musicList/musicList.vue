@@ -210,7 +210,7 @@ export default {
     window.addEventListener("scroll", this.handleScroll);
   },
   onLoad() {
-    this.$Api.getPlatList("32953014").then(
+    this.$Api.getPlatList().then(
       (res) => {
         console.log(res);
       },

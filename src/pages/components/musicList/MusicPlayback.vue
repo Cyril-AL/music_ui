@@ -123,8 +123,8 @@ export default {
   computed: {
     playImage() {
       return this.isPlaying
-        ? "/static/components/timeOut.png"
-        : "/static/components/player.png";
+        ? "/static/components/Time out.png"
+        : "/static/components/Player.png";
     },
     loopImage() {
       return this.loopType === 0
